@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 const USERNAME = 'kusunoki778'
 
@@ -13,8 +13,12 @@ const topRepositories = ref([])
 
 function makeMonths(contributions) {
   const now = new Date()
+  const cursor = new Date(now.getFullYear(), now.getMonth(), 1)
+  // Walk back exactly 12 months so the chart always ends on the current month.
+  const first = new Date(cursor.getFullYear(), cursor.getMonth() - 11, 1)
+
   return Array.from({ length: 12 }, (_, offset) => {
-    const date = new Date(now.getFullYear(), now.getMonth() - 11 + offset, 1)
+    const date = new Date(first.getFullYear(), first.getMonth() + offset, 1)
     const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`
     const count = contributions
       .filter((item) => item.date.startsWith(key))
@@ -29,9 +33,11 @@ function makeMonths(contributions) {
 }
 
 async function countRepositoryCommits(repo, signal) {
+  // GitHub rejects requests without a User-Agent, which is why the counter used
+  // to stay empty in some browsers.
   const response = await fetch(`https://api.github.com/repos/${USERNAME}/${repo}/commits?per_page=1`, {
     signal,
-    headers: { Accept: 'application/vnd.github+json' },
+    headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'portfolio-web' },
   })
 
   if (!response.ok) return { repo, count: 0 }
@@ -49,7 +55,7 @@ async function countRepositoryCommits(repo, signal) {
 async function getPublicRepositories(signal) {
   const response = await fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100&type=owner&sort=pushed`, {
     signal,
-    headers: { Accept: 'application/vnd.github+json' },
+    headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'portfolio-web' },
   })
 
   if (!response.ok) return []
@@ -68,35 +74,29 @@ async function load() {
       fetch(`https://github-contributions-api.jogruber.de/v4/${USERNAME}?y=last`, { signal: controller.signal }).then((r) =>
         r.ok ? r.json() : null,
       ),
-      fetch(`https://api.github.com/users/${USERNAME}`, { signal: controller.signal }).then((r) =>
-        r.ok ? r.json() : null,
-      ),
+      fetch(`https://api.github.com/users/${USERNAME}`, {
+        signal: controller.signal,
+        headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'portfolio-web' },
+      }).then((r) => (r.ok ? r.json() : null)),
       getPublicRepositories(controller.signal),
     ])
 
-    const activity = activityResult.status === 'fulfilled' ? activityResult.value : null
-    profile.value = profileResult.status === 'fulfilled' ? profileResult.value : {}
+    // `/users/:name` reports the authoritative public repo count; the repos list
+    // is capped at 100 items per page and can come back empty when rate limited.
+    const profileData = profileResult.status === 'fulfilled' ? profileResult.value : null
+    const repositories = repositoriesResult.status === 'fulfilled' ? repositoriesResult.value : []
+    profile.value = profileData || (repositories.length ? { public_repos: repositories.length } : null)
 
+    const activity = activityResult.status === 'fulfilled' ? activityResult.value : null
     const contributions = activity?.contributions || []
     activityAvailable.value = Array.isArray(activity?.contributions)
     if (activityAvailable.value) {
       months.value = makeMonths(contributions)
       totalContributions.value = months.value.reduce((sum, m) => sum + m.count, 0)
     } else {
-      // Fallback: build months from commit history if contribution API fails
-      const now = new Date()
-      months.value = Array.from({ length: 12 }, (_, offset) => {
-        const date = new Date(now.getFullYear(), now.getMonth() - 11 + offset, 1)
-        return {
-          label: date.toLocaleString('en-US', { month: 'short' }),
-          year: String(date.getFullYear()).slice(-2),
-          full: date.toLocaleString('id-ID', { month: 'long', year: 'numeric' }),
-          count: 0,
-        }
-      })
+      months.value = makeMonths([])
     }
 
-    const repositories = repositoriesResult.status === 'fulfilled' ? repositoriesResult.value : []
     const repoCounts = (await Promise.all(
       repositories.map((repository) =>
         countRepositoryCommits(repository.name, controller.signal).catch(() => null),
@@ -121,6 +121,14 @@ async function load() {
 onMounted(load)
 
 const maxCount = () => Math.max(1, ...months.value.map((m) => m.count))
+
+const totalRepoCount = computed(() => {
+  if (typeof profile.value?.public_repos === 'number') return profile.value.public_repos
+  if (topRepositories.value.length) return `${topRepositories.value.length}+`
+  return '—'
+})
+
+const activityLabel = computed(() => (activityAvailable.value ? 'aktivitas 12 bulan' : 'aktivitas terbaru'))
 </script>
 
 <template>
@@ -137,10 +145,10 @@ const maxCount = () => Math.max(1, ...months.value.map((m) => m.count))
         </h2>
       </div>
       <a
-        :href="`https://github.com/${USERNAME}`"
+        :href="`https://github.com/${USERNAME}?tab=repositories`"
         target="_blank"
         rel="noreferrer"
-        class="inline-flex items-center gap-1 font-mono text-[0.9375rem] font-bold text-[var(--text-primary)] underline decoration-2 underline-offset-4 hover:opacity-80"
+        class="hidden text-[0.9375rem] font-bold text-[var(--text-primary)] underline decoration-2 underline-offset-4 hover:opacity-80 sm:inline-block"
       >
         Lihat semua repositori ↗
       </a>
@@ -149,33 +157,37 @@ const maxCount = () => Math.max(1, ...months.value.map((m) => m.count))
     <!-- GitHub Main Panel -->
     <div class="mt-8 rounded-[1.25rem] border border-[var(--line)] bg-[var(--surface-card)] p-5 shadow-sm md:p-7">
       <!-- Summary Bar -->
-      <div class="flex flex-wrap items-center gap-4 border-b border-[var(--line)] pb-5 sm:gap-6">
-        <div class="grid size-11 place-items-center rounded-xl bg-[var(--text-primary)] text-xl font-bold text-[var(--surface)] shadow-sm">
-          ⌘
+      <div class="flex flex-wrap items-center gap-x-5 gap-y-3 border-b border-[var(--line)] pb-5">
+        <div class="grid size-9 shrink-0 place-items-center rounded-xl bg-[var(--text-primary)] text-[var(--surface)] shadow-sm sm:size-11">
+          <svg viewBox="0 0 16 16" class="size-4 fill-current sm:size-5" aria-hidden="true">
+            <path
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"
+            />
+          </svg>
         </div>
-        <div class="flex flex-wrap items-baseline gap-x-8 gap-y-2">
+        <div class="flex flex-wrap items-baseline gap-x-6 gap-y-2">
           <div>
-            <strong class="block text-2xl font-bold leading-none text-[var(--text-primary)]">
-              {{ profile?.public_repos ?? '—' }}
+            <strong class="block text-xl font-bold leading-none text-[var(--text-primary)] sm:text-2xl">
+              {{ totalRepoCount }}
             </strong>
-            <span class="font-mono text-[0.6875rem] font-medium uppercase tracking-wider text-[var(--text-muted)]">
+            <span class="font-mono text-[0.625rem] font-medium uppercase tracking-wider text-[var(--text-muted)] sm:text-[0.6875rem]">
               repositori publik
             </span>
           </div>
           <div>
-            <strong class="block text-2xl font-bold leading-none text-[var(--text-primary)]">
-              {{ activityAvailable ? totalContributions : '—' }}
+            <strong class="block text-xl font-bold leading-none text-[var(--text-primary)] sm:text-2xl">
+              {{ totalContributions }}
             </strong>
-            <span class="font-mono text-[0.6875rem] font-medium uppercase tracking-wider text-[var(--text-muted)]">
-              aktivitas terbaru
+            <span class="font-mono text-[0.625rem] font-medium uppercase tracking-wider text-[var(--text-muted)] sm:text-[0.6875rem]">
+              {{ activityLabel }}
             </span>
           </div>
         </div>
         <a
-          :href="`https://github.com/${USERNAME}`"
+          :href="`https://github.com/${USERNAME}?tab=repositories`"
           target="_blank"
           rel="noreferrer"
-          class="ml-auto font-mono text-xs font-semibold text-[var(--text-primary)] underline decoration-1 underline-offset-4 hover:opacity-80"
+          class="font-mono text-[0.6875rem] font-semibold text-[var(--text-primary)] underline decoration-1 underline-offset-4 hover:opacity-80 sm:ml-auto sm:text-xs"
         >
           Buka GitHub ↗
         </a>
@@ -196,11 +208,11 @@ const maxCount = () => Math.max(1, ...months.value.map((m) => m.count))
 
       <!-- Monthly Activity Chart -->
       <div v-else class="pt-6">
-        <div class="grid h-48 grid-cols-6 items-end gap-2 sm:grid-cols-12 sm:gap-3 px-1">
+        <div class="grid h-auto grid-cols-6 items-end gap-x-2 gap-y-4 sm:h-48 sm:grid-cols-12 sm:gap-3 sm:gap-y-0 px-1">
           <div
             v-for="month in months"
             :key="month.label + month.year"
-            class="flex h-full flex-col items-center justify-end gap-1.5"
+            class="flex min-w-0 flex-col items-center justify-end gap-1.5 sm:h-full"
           >
             <!-- Commit count number on top of bar -->
             <strong class="font-mono text-[0.6875rem] font-medium text-[var(--text-primary)]">
@@ -208,7 +220,7 @@ const maxCount = () => Math.max(1, ...months.value.map((m) => m.count))
             </strong>
 
             <!-- Track Container with Neutral Grayscale Bar -->
-            <div class="flex h-28 w-full max-w-[34px] items-end rounded-lg bg-[var(--surface-muted)]/70 p-0.5 overflow-hidden">
+            <div class="flex h-20 w-full max-w-[34px] items-end overflow-hidden rounded-lg bg-[var(--surface-muted)]/70 p-0.5 sm:h-28">
               <span
                 class="block w-full rounded-md transition-all duration-700 ease-out"
                 :style="{
@@ -228,8 +240,8 @@ const maxCount = () => Math.max(1, ...months.value.map((m) => m.count))
         </div>
 
         <!-- Top Active Repositories Section -->
-        <div v-if="topRepositories.length" class="mt-6 border-t border-[var(--line)] pt-4">
-          <p class="font-mono text-[0.625rem] font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-2">
+        <div v-if="topRepositories.length" class="mt-8 border-t border-[var(--line)] pt-4">
+          <p class="mb-2 font-mono text-[0.625rem] font-semibold uppercase tracking-wider text-[var(--text-muted)]">
             Repositori dengan commit terbanyak
           </p>
           <div class="divide-y divide-[var(--line)]">
@@ -239,15 +251,15 @@ const maxCount = () => Math.max(1, ...months.value.map((m) => m.count))
               :href="`https://github.com/${USERNAME}/${item.repo}`"
               target="_blank"
               rel="noreferrer"
-              class="group flex items-center justify-between py-2.5 text-sm transition-colors"
+              class="group flex items-center justify-between gap-3 py-2.5 text-sm transition-colors"
             >
-              <div class="flex items-center gap-3">
+              <div class="flex min-w-0 items-center gap-2 sm:gap-3">
                 <span class="font-mono text-xs font-bold text-[var(--text-muted)]">0{{ index + 1 }}</span>
-                <strong class="font-mono text-xs sm:text-sm text-[var(--text-primary)] group-hover:underline transition-colors">
+                <strong class="truncate font-mono text-xs text-[var(--text-primary)] transition-colors group-hover:underline sm:text-sm">
                   {{ item.repo }}
                 </strong>
               </div>
-              <small class="font-mono text-xs text-[var(--text-muted)]">
+              <small class="shrink-0 font-mono text-[0.6875rem] text-[var(--text-muted)] sm:text-xs">
                 {{ item.count }} commits ↗
               </small>
             </a>
@@ -255,10 +267,24 @@ const maxCount = () => Math.max(1, ...months.value.map((m) => m.count))
         </div>
 
         <!-- Footnote Status -->
-        <p class="mt-4 font-mono text-[0.65rem] text-[var(--text-muted)]">
+        <p class="mt-6 font-mono text-[0.65rem] leading-relaxed text-[var(--text-muted)] sm:mt-4">
           Jumlah commit pada branch utama dari repositori yang sedang dipantau.
+        </p>
+
+        <!-- Shown when the GitHub API is rate limited so the panel never ends empty -->
+        <p v-if="!topRepositories.length" class="mt-6 border-t border-[var(--line)] pt-4 font-mono text-[0.65rem] leading-relaxed text-[var(--text-muted)]">
+          Daftar repositori sedang tidak bisa dimuat. Buka profil GitHub untuk melihat semuanya.
         </p>
       </div>
     </div>
+
+    <a
+      :href="`https://github.com/${USERNAME}?tab=repositories`"
+      target="_blank"
+      rel="noreferrer"
+      class="mt-6 inline-flex items-center gap-1 font-mono text-[0.9375rem] font-bold text-[var(--text-primary)] underline decoration-2 underline-offset-4 hover:opacity-80 sm:hidden"
+    >
+      Lihat semua repositori ↗
+    </a>
   </section>
 </template>

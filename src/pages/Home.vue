@@ -183,13 +183,16 @@ const stats = [
             Proyek yang pernah<br /><span class="text-[var(--text-faint)]">saya kerjakan.</span>
           </h2>
         </div>
-        <RouterLink to="/projects" class="text-[0.9375rem] font-bold text-[var(--text-primary)] underline decoration-2 underline-offset-4">
+        <RouterLink to="/projects" class="hidden text-[0.9375rem] font-bold text-[var(--text-primary)] underline decoration-2 underline-offset-4 sm:inline-block">
           Lihat semua proyek ↗
         </RouterLink>
       </div>
       <div class="grid grid-cols-2 gap-3 sm:gap-6">
         <ProjectCard v-for="project in projects" :key="project.slug" :project="project" />
       </div>
+      <RouterLink to="/projects" class="mt-6 inline-block text-[0.9375rem] font-bold text-[var(--text-primary)] underline decoration-2 underline-offset-4 sm:hidden">
+        Lihat semua proyek ↗
+      </RouterLink>
     </section>
 
     <!-- CERTIFICATE STRIP -->
@@ -201,7 +204,7 @@ const stats = [
             Sertifikat yang mendukung pekerjaan saya.
           </h2>
         </div>
-        <RouterLink to="/certificates" class="text-[0.9375rem] font-bold text-[var(--text-primary)] underline decoration-2 underline-offset-4">
+        <RouterLink to="/certificates" class="hidden text-[0.9375rem] font-bold text-[var(--text-primary)] underline decoration-2 underline-offset-4 sm:inline-block">
           Lihat semua sertifikat ↗
         </RouterLink>
       </div>
