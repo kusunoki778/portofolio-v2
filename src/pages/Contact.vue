@@ -18,17 +18,14 @@ const links = [
   },
   {
     label: 'Curriculum Vitae',
-    value: 'Unduh CV (PDF)',
-    href: '/assets/Muhamad_Fadhlurrahman_CV.pdf',
-    download: 'Muhamad_Fadhlurrahman_CV.pdf',
-    secondary: {
-      label: 'Versi ATS',
-      href: '/assets/Muhamad_Fadhlurrahman_ATS_CV.pdf',
-      download: 'Muhamad_Fadhlurrahman_ATS_CV.pdf',
-    },
-    note: 'Ringkasan pendidikan, pengalaman, dan teknologi yang saya pakai.',
+    url: '/cv',
+    value: 'Lihat CV lengkap',
+    note: 'Pratinjau CV di situs, plus unduhan PDF dan versi ramah ATS.',
   },
 ]
+
+const contactLinks = links.filter((link) => !link.url)
+const cvLink = links.find((link) => link.url)
 </script>
 
 <template>
@@ -46,23 +43,17 @@ const links = [
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <BaseButton href="mailto:mfadhlurrahman361@gmail.com" size="lg">Kirim email <span aria-hidden="true">↗</span></BaseButton>
-            <BaseButton
-              href="/assets/Muhamad_Fadhlurrahman_CV.pdf"
-              download="Muhamad_Fadhlurrahman_CV.pdf"
-              variant="outline"
-              size="lg"
-            >
-              Unduh CV <span aria-hidden="true">↓</span>
+            <BaseButton to="/cv" variant="outline" size="lg">
+              Lihat CV <span aria-hidden="true">→</span>
             </BaseButton>
           </div>
         </div>
 
         <div>
           <ul class="border-t border-[var(--line)]">
-            <li v-for="link in links" :key="link.label" class="border-b border-[var(--line)]">
+            <li v-for="link in contactLinks" :key="link.label" class="border-b border-[var(--line)]">
               <a
                 :href="link.href"
-                :download="link.download"
                 :target="link.href.startsWith('http') ? '_blank' : undefined"
                 :rel="link.href.startsWith('http') ? 'noreferrer' : undefined"
                 class="group grid gap-1 py-6 transition hover:opacity-80"
@@ -70,17 +61,22 @@ const links = [
                 <span class="text-[0.75rem] font-bold uppercase tracking-[0.16em] text-[var(--text-muted)]">{{ link.label }}</span>
                 <span class="flex items-center justify-between gap-4">
                   <strong class="break-all text-[1.0625rem] font-bold text-[var(--text-primary)]">{{ link.value }}</strong>
-                  <span aria-hidden="true" class="text-[var(--text-muted)] transition group-hover:translate-x-1">{{ link.download ? '↓' : '↗' }}</span>
+                  <span aria-hidden="true" class="text-[var(--text-muted)] transition group-hover:translate-x-1">↗</span>
                 </span>
                 <span class="text-[0.875rem] leading-6 text-[var(--text-muted)]">{{ link.note }}</span>
               </a>
-              <a
-                v-if="link.secondary"
-                :href="link.secondary.href"
-                :download="link.secondary.download"
-                class="-mt-2 mb-6 inline-flex items-center gap-2 text-[0.875rem] font-bold text-[var(--text-primary)] underline decoration-2 underline-offset-4"
-                >{{ link.secondary.label }} <span aria-hidden="true">↓</span></a
-              >
+            </li>
+
+            <!-- CV lives on its own page so the PDF always has a readable fallback -->
+            <li class="border-b border-[var(--line)]">
+              <RouterLink to="/cv" class="group grid gap-1 py-6 transition hover:opacity-80">
+                <span class="text-[0.75rem] font-bold uppercase tracking-[0.16em] text-[var(--text-muted)]">{{ cvLink.label }}</span>
+                <span class="flex items-center justify-between gap-4">
+                  <strong class="text-[1.0625rem] font-bold text-[var(--text-primary)]">{{ cvLink.value }}</strong>
+                  <span aria-hidden="true" class="text-[var(--text-muted)] transition group-hover:translate-x-1">→</span>
+                </span>
+                <span class="text-[0.875rem] leading-6 text-[var(--text-muted)]">{{ cvLink.note }}</span>
+              </RouterLink>
             </li>
           </ul>
 

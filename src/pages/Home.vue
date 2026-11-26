@@ -94,9 +94,9 @@ const stats = [
           </p>
 
           <div class="mt-8 flex flex-wrap gap-3">
-            <BaseButton href="/assets/Muhamad_Fadhlurrahman_CV.pdf" download="Muhamad_Fadhlurrahman_CV.pdf" size="lg">
-              UNDUH CV
-              <span aria-hidden="true">↓</span>
+            <BaseButton to="/cv" size="lg">
+              LIHAT CV
+              <span aria-hidden="true">→</span>
             </BaseButton>
             <BaseButton to="/projects" variant="outline" size="lg">
               LIHAT PROYEK

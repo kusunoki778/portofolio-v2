@@ -11,6 +11,7 @@ const items = [
   { name: 'Tentang saya', to: '/about' },
   { name: 'Proyek', to: '/projects' },
   { name: 'Sertifikat', to: '/certificates' },
+  { name: 'CV', to: '/cv' },
   { name: 'Kontak', to: '/contact' },
 ]
 

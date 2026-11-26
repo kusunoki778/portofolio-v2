@@ -13,12 +13,7 @@ const year = new Date().getFullYear()
         <span aria-hidden="true" class="text-[var(--text-faint)]">·</span>
         <a href="https://github.com/kusunoki778" target="_blank" rel="noreferrer" class="transition hover:text-[var(--text-primary)]">GitHub</a>
         <span aria-hidden="true" class="text-[var(--text-faint)]">·</span>
-        <a
-          href="/assets/Muhamad_Fadhlurrahman_CV.pdf"
-          download="Muhamad_Fadhlurrahman_CV.pdf"
-          class="transition hover:text-[var(--text-primary)]"
-          >CV</a
-        >
+        <RouterLink to="/cv" class="transition hover:text-[var(--text-primary)]">CV</RouterLink>
         <span aria-hidden="true" class="text-[var(--text-faint)]">·</span>
         <span>Bekasi, Indonesia</span>
       </span>

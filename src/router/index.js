@@ -5,6 +5,7 @@ import Projects from '../pages/Projects.vue'
 import ProjectDetail from '../pages/ProjectDetail.vue'
 import Certificates from '../pages/Certificates.vue'
 import Contact from '../pages/Contact.vue'
+import Cv from '../pages/Cv.vue'
 import NotFound from '../pages/NotFound.vue'
 import { findProject } from '../data/projects'
 
@@ -62,6 +63,16 @@ const routes = [
     meta: {
       title: 'Kontak — Muhamad Fadhlurrahman',
       description: 'Hubungi Muhamad Fadhlurrahman untuk peluang magang, kolaborasi, atau diskusi proyek.',
+    },
+  },
+  {
+    path: '/cv',
+    name: 'cv',
+    component: Cv,
+    meta: {
+      title: 'CV — Muhamad Fadhlurrahman',
+      description:
+        'Curriculum vitae Muhamad Fadhlurrahman: pendidikan D4 Rekayasa Perangkat Lunak, pengalaman magang IT support, proyek web dan mobile, dan sertifikasi.',
     },
   },
   {
