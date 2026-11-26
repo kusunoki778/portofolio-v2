@@ -7,7 +7,7 @@ import BaseButton from '../components/BaseButton.vue'
 import SectionLabel from '../components/SectionLabel.vue'
 import SiteFooter from '../components/SiteFooter.vue'
 import { featuredProjects } from '../data/projects'
-import { certificates } from '../data/certificates'
+import { featuredCertificates } from '../data/certificates'
 import { useVisitCount } from '../composables/useVisitCount'
 
 const projects = featuredProjects
@@ -199,7 +199,7 @@ const stats = [
     <section class="mx-auto w-[min(1180px,calc(100%-2rem))] pb-16 md:pb-24">
       <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <SectionLabel eyebrow="Sertifikat terbaru" />
+          <SectionLabel eyebrow="Sertifikat pilihan" />
           <h2 class="mt-5 text-2xl font-bold leading-tight tracking-[-0.02em] text-[var(--text-primary)] md:text-[2rem]">
             Sertifikat yang mendukung pekerjaan saya.
           </h2>
@@ -210,7 +210,7 @@ const stats = [
       </div>
       <ul class="grid grid-cols-2 gap-3 lg:grid-cols-3">
         <li
-          v-for="certificate in certificates.slice(0, 3)"
+          v-for="certificate in featuredCertificates"
           :key="certificate.title"
           class="flex items-start gap-2 rounded-2xl border border-[var(--line)] bg-[var(--surface-card)] p-3 sm:gap-3 sm:p-4"
         >

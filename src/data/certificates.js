@@ -20,3 +20,12 @@ export const certificates = [
 ].map(([title, issuer, year, image, group, imageAlt]) => ({ title, issuer, year, image, group, imageAlt }))
 
 export const certificateGroups = ['Semua', ...new Set(certificates.map((item) => item.group))]
+
+// Certificates highlighted on the Home page (3 cards, 2 columns on mobile).
+export const featuredCertificates = [
+  'Belajar Membuat Aplikasi Web dengan React',
+  'Pemrograman Dart Dasar',
+  'Study Case Bootcamp Machine Learning & AI for Beginner',
+]
+  .map((title) => certificates.find((item) => item.title === title))
+  .filter(Boolean)
