@@ -221,6 +221,9 @@ const stats = [
           </span>
         </li>
       </ul>
+      <RouterLink to="/certificates" class="mt-6 inline-block text-[0.9375rem] font-bold text-[var(--text-primary)] underline decoration-2 underline-offset-4 sm:hidden">
+        Lihat semua sertifikat ↗
+      </RouterLink>
     </section>
 
     <div class="mx-auto w-[min(1180px,calc(100%-2rem))] pb-4">

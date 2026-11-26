@@ -7,9 +7,11 @@ const months = ref([])
 const loading = ref(true)
 const failed = ref(false)
 const profile = ref(null)
+const repositories = ref([])
 const totalContributions = ref(0)
 const activityAvailable = ref(false)
 const topRepositories = ref([])
+const commitCountsAvailable = ref(false)
 
 function makeMonths(contributions) {
   const now = new Date()
@@ -58,14 +60,16 @@ async function getPublicRepositories(signal) {
     headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'portfolio-web' },
   })
 
-  if (!response.ok) return []
-  const repositories = await response.json()
-  return Array.isArray(repositories) ? repositories : []
+  // `null` means "we could not ask GitHub", [] means "the list is really empty".
+  if (!response.ok) return null
+  const list = await response.json()
+  return Array.isArray(list) ? list : null
 }
 
 async function load() {
   loading.value = true
   failed.value = false
+  commitCountsAvailable.value = false
   const controller = new AbortController()
   const timer = setTimeout(() => controller.abort(), 9000)
 
@@ -82,10 +86,11 @@ async function load() {
     ])
 
     // `/users/:name` reports the authoritative public repo count; the repos list
-    // is capped at 100 items per page and can come back empty when rate limited.
+    // can come back empty when GitHub rate-limits the connection.
     const profileData = profileResult.status === 'fulfilled' ? profileResult.value : null
-    const repositories = repositoriesResult.status === 'fulfilled' ? repositoriesResult.value : []
-    profile.value = profileData || (repositories.length ? { public_repos: repositories.length } : null)
+    const repoList = repositoriesResult.status === 'fulfilled' ? repositoriesResult.value : null
+    profile.value = profileData
+    repositories.value = repoList || []
 
     const activity = activityResult.status === 'fulfilled' ? activityResult.value : null
     const contributions = activity?.contributions || []
@@ -97,17 +102,21 @@ async function load() {
       months.value = makeMonths([])
     }
 
-    const repoCounts = (await Promise.all(
-      repositories.map((repository) =>
-        countRepositoryCommits(repository.name, controller.signal).catch(() => null),
-      ),
-    ))
-      .filter(Boolean)
-      .filter((item) => item.count > 0)
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 5)
-
-    topRepositories.value = repoCounts
+    // Count commits only when the repo list actually arrived, otherwise every
+    // request fails and we would spend the rate limit for nothing.
+    if (repositories.value.length) {
+      const results = await Promise.all(
+        repositories.value.map((repository) =>
+          countRepositoryCommits(repository.name, controller.signal).catch(() => null),
+        ),
+      )
+      commitCountsAvailable.value = results.some((item) => item && item.count > 0)
+      topRepositories.value = results
+        .filter(Boolean)
+        .filter((item) => item.count > 0)
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 5)
+    }
   } catch {
     failed.value = true
     activityAvailable.value = false
@@ -122,10 +131,11 @@ onMounted(load)
 
 const maxCount = () => Math.max(1, ...months.value.map((m) => m.count))
 
+// Real numbers only: GitHub's profile count first, then the fetched repo list.
 const totalRepoCount = computed(() => {
-  if (typeof profile.value?.public_repos === 'number') return profile.value.public_repos
-  if (topRepositories.value.length) return `${topRepositories.value.length}+`
-  return '—'
+  if (typeof profile.value?.public_repos === 'number') return String(profile.value.public_repos)
+  if (repositories.value.length) return String(repositories.value.length)
+  return null
 })
 
 const activityLabel = computed(() => (activityAvailable.value ? 'aktivitas 12 bulan' : 'aktivitas terbaru'))
@@ -168,7 +178,7 @@ const activityLabel = computed(() => (activityAvailable.value ? 'aktivitas 12 bu
         <div class="flex flex-wrap items-baseline gap-x-6 gap-y-2">
           <div>
             <strong class="block text-xl font-bold leading-none text-[var(--text-primary)] sm:text-2xl">
-              {{ totalRepoCount }}
+              {{ totalRepoCount ?? '—' }}
             </strong>
             <span class="font-mono text-[0.625rem] font-medium uppercase tracking-wider text-[var(--text-muted)] sm:text-[0.6875rem]">
               repositori publik
@@ -267,13 +277,16 @@ const activityLabel = computed(() => (activityAvailable.value ? 'aktivitas 12 bu
         </div>
 
         <!-- Footnote Status -->
-        <p class="mt-6 font-mono text-[0.65rem] leading-relaxed text-[var(--text-muted)] sm:mt-4">
+        <p v-if="commitCountsAvailable" class="mt-6 font-mono text-[0.65rem] leading-relaxed text-[var(--text-muted)] sm:mt-4">
           Jumlah commit pada branch utama dari repositori yang sedang dipantau.
         </p>
 
-        <!-- Shown when the GitHub API is rate limited so the panel never ends empty -->
-        <p v-if="!topRepositories.length" class="mt-6 border-t border-[var(--line)] pt-4 font-mono text-[0.65rem] leading-relaxed text-[var(--text-muted)]">
-          Daftar repositori sedang tidak bisa dimuat. Buka profil GitHub untuk melihat semuanya.
+        <!-- Shown when GitHub rate-limits the request, so the panel never ends empty -->
+        <p
+          v-else
+          class="mt-6 border-t border-[var(--line)] pt-4 font-mono text-[0.65rem] leading-relaxed text-[var(--text-muted)]"
+        >
+          Daftar repositori sedang tidak bisa dimuat (batas permintaan GitHub). Buka profil GitHub untuk melihat semuanya.
         </p>
       </div>
     </div>
