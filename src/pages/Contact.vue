@@ -20,7 +20,7 @@ const links = [
     label: 'Curriculum Vitae',
     url: '/cv',
     value: 'Lihat CV lengkap',
-    note: 'Pratinjau CV di situs, plus unduhan PDF dan versi ramah ATS.',
+    note: 'Pratinjau CV di situs, plus unduhan versi PDF.',
   },
 ]
 

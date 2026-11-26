@@ -1,11 +1,9 @@
 <script setup>
-import { computed } from 'vue'
 import BaseButton from '../components/BaseButton.vue'
 import SectionLabel from '../components/SectionLabel.vue'
 import SiteFooter from '../components/SiteFooter.vue'
 
 const CV_FILE = '/assets/Muhamad_Fadhlurrahman_CV.pdf'
-const ATS_FILE = '/assets/Muhamad_Fadhlurrahman_ATS_CV.pdf'
 const DOWNLOAD_NAME = 'Muhamad_Fadhlurrahman_CV.pdf'
 
 // The PDF is rendered to images at build time (scripts/pdf-to-images.mjs) so the
@@ -20,8 +18,6 @@ const highlights = [
   'Magang IT Support di PT Indofarma Tbk dan PT Madina Flash, Bintaro',
   'Terbiasa Laravel, React, Flutter, MySQL, PostgreSQL, dan Linux',
 ]
-
-const atsHref = computed(() => ATS_FILE)
 </script>
 
 <template>
@@ -44,9 +40,6 @@ const atsHref = computed(() => ATS_FILE)
         <BaseButton :href="CV_FILE" target="_blank" rel="noreferrer" variant="outline" size="lg">
           BUKA PDF DI TAB BARU
           <span aria-hidden="true">↗</span>
-        </BaseButton>
-        <BaseButton :href="atsHref" download="Muhamad_Fadhlurrahman_ATS_CV.pdf" variant="ghost" size="lg">
-          Versi ATS
         </BaseButton>
       </div>
 
@@ -98,7 +91,7 @@ const atsHref = computed(() => ATS_FILE)
             Butuh CV dalam format lain?
           </h2>
           <p class="mt-2 text-[0.9375rem] leading-7 text-[var(--text-muted)]">
-            Saya bisa mengirim versi PDF, versi ramah ATS, atau detail portofolio lewat email.
+            Saya bisa mengirim versi PDF atau detail portofolio lewat email.
           </p>
         </div>
         <div class="flex flex-wrap gap-3">
