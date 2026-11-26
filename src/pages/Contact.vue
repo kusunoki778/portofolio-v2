@@ -73,7 +73,7 @@ const links = [
           </ul>
 
           <p class="mt-6 flex items-center gap-2 text-[0.875rem] font-semibold text-[var(--text-muted)]">
-            <span class="size-2 shrink-0 rounded-full bg-[var(--text-primary)]" aria-hidden="true" />
+            <span class="status-dot size-2 shrink-0 rounded-full bg-[var(--text-primary)]" aria-hidden="true" />
             <span>Berbasis di Bekasi, Indonesia — terbuka untuk kerja jarak jauh maupun dari kantor</span>
           </p>
         </div>

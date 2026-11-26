@@ -46,11 +46,11 @@ const filtered = computed(() =>
         </button>
       </div>
 
-      <ul class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <ul class="mt-8 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
         <li v-for="certificate in filtered" :key="certificate.title + certificate.issuer">
           <button
             type="button"
-            class="group flex h-full w-full flex-col overflow-hidden rounded-[1.25rem] border border-[var(--line)] bg-[var(--surface-card)] text-left transition hover:-translate-y-1 hover:border-[var(--line-strong)] hover:shadow-xl hover:shadow-black/10"
+            class="group flex h-full w-full flex-col overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--surface-card)] text-left transition sm:rounded-[1.25rem] sm:hover:-translate-y-1 sm:hover:border-[var(--line-strong)] sm:hover:shadow-xl sm:hover:shadow-black/10"
             :aria-label="`Perbesar sertifikat ${certificate.title}`"
             @click="selected = certificate"
           >
@@ -59,11 +59,11 @@ const filtered = computed(() =>
               :alt="certificate.imageAlt"
               loading="lazy"
               decoding="async"
-              class="aspect-[4/3] w-full bg-white object-contain p-2"
+              class="aspect-[4/3] w-full bg-white object-contain p-1.5 sm:p-2"
             />
-            <span class="flex flex-1 flex-col gap-1 p-5">
-              <strong class="text-[0.9375rem] font-bold leading-snug text-[var(--text-primary)]">{{ certificate.title }}</strong>
-              <span class="mt-auto pt-2 text-[0.8125rem] font-semibold uppercase tracking-[0.1em] text-[var(--text-muted)]">
+            <span class="flex flex-1 flex-col gap-0.5 p-2.5 sm:gap-1 sm:p-5">
+              <strong class="text-[0.75rem] font-bold leading-snug text-[var(--text-primary)] sm:text-[0.9375rem]">{{ certificate.title }}</strong>
+              <span class="mt-auto pt-1.5 text-[0.625rem] font-semibold uppercase leading-snug tracking-[0.06em] text-[var(--text-muted)] sm:pt-2 sm:text-[0.8125rem] sm:tracking-[0.1em]">
                 {{ certificate.issuer }} · {{ certificate.year }}
               </span>
             </span>

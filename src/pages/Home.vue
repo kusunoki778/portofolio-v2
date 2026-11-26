@@ -66,7 +66,7 @@ const stats = [
         class="inline-flex max-w-full items-center gap-2 rounded-full border border-[var(--line-strong)] px-3 py-2 text-left text-[0.75rem] font-semibold leading-snug text-[var(--text-muted)] sm:px-4 sm:py-1.5 sm:text-[0.8125rem]"
         aria-label="Status ketersediaan"
       >
-        <span class="size-2 shrink-0 rounded-full bg-[var(--text-primary)]" aria-hidden="true" />
+        <span class="status-dot size-2 shrink-0 rounded-full bg-[var(--text-primary)]" aria-hidden="true" />
         <span>Terbuka untuk magang pengembangan perangkat lunak</span>
       </p>
 
@@ -205,16 +205,16 @@ const stats = [
           Lihat semua sertifikat ↗
         </RouterLink>
       </div>
-      <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <ul class="grid grid-cols-2 gap-3 lg:grid-cols-3">
         <li
           v-for="certificate in certificates.slice(0, 3)"
           :key="certificate.title"
-          class="flex items-start gap-3 rounded-2xl border border-[var(--line)] bg-[var(--surface-card)] p-4"
+          class="flex items-start gap-2 rounded-2xl border border-[var(--line)] bg-[var(--surface-card)] p-3 sm:gap-3 sm:p-4"
         >
-          <span aria-hidden="true" class="mt-1 grid size-8 shrink-0 place-items-center rounded-full bg-[var(--surface-muted)] font-mono text-[0.6875rem] text-[var(--text-muted)]">✓</span>
+          <span aria-hidden="true" class="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-[var(--surface-muted)] font-mono text-[0.625rem] text-[var(--text-muted)] sm:mt-1 sm:size-8 sm:text-[0.6875rem]">✓</span>
           <span>
-            <strong class="block text-[0.9375rem] font-bold leading-snug text-[var(--text-primary)]">{{ certificate.title }}</strong>
-            <span class="mt-1 block text-[0.8125rem] text-[var(--text-muted)]">{{ certificate.issuer }} · {{ certificate.year }}</span>
+            <strong class="block text-[0.8125rem] font-bold leading-snug text-[var(--text-primary)] sm:text-[0.9375rem]">{{ certificate.title }}</strong>
+            <span class="mt-1 block text-[0.6875rem] leading-snug text-[var(--text-muted)] sm:text-[0.8125rem]">{{ certificate.issuer }} · {{ certificate.year }}</span>
           </span>
         </li>
       </ul>
