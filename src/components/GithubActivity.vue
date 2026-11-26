@@ -66,6 +66,20 @@ async function getPublicRepositories(signal) {
   return Array.isArray(list) ? list : null
 }
 
+// Every visitor shares one cached serverless call (/api/github), so the GitHub
+// rate limit per IP no longer matters. Returns null when the endpoint is absent.
+async function getServerSummary(signal) {
+  try {
+    const response = await fetch('/api/github', { signal })
+    if (!response.ok) return null
+    const data = await response.json()
+    if (!data || typeof data !== 'object') return null
+    return data
+  } catch {
+    return null
+  }
+}
+
 async function load() {
   loading.value = true
   failed.value = false
@@ -74,7 +88,7 @@ async function load() {
   const timer = setTimeout(() => controller.abort(), 9000)
 
   try {
-    const [activityResult, profileResult, repositoriesResult] = await Promise.allSettled([
+    const [activityResult, profileResult, repositoriesResult, serverResult] = await Promise.allSettled([
       fetch(`https://github-contributions-api.jogruber.de/v4/${USERNAME}?y=last`, { signal: controller.signal }).then((r) =>
         r.ok ? r.json() : null,
       ),
@@ -83,7 +97,10 @@ async function load() {
         headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'portfolio-web' },
       }).then((r) => (r.ok ? r.json() : null)),
       getPublicRepositories(controller.signal),
+      getServerSummary(controller.signal),
     ])
+
+    const summary = serverResult.status === 'fulfilled' ? serverResult.value : null
 
     // `/users/:name` reports the authoritative public repo count; the repos list
     // can come back empty when GitHub rate-limits the connection.
@@ -102,9 +119,16 @@ async function load() {
       months.value = makeMonths([])
     }
 
-    // Count commits only when the repo list actually arrived, otherwise every
-    // request fails and we would spend the rate limit for nothing.
-    if (repositories.value.length) {
+    if (Array.isArray(summary?.topRepositories) && summary.topRepositories.length) {
+      // Server already counted the commits: instant and never rate limited.
+      topRepositories.value = summary.topRepositories.map((item) => ({ repo: item.repo, count: item.commits }))
+      commitCountsAvailable.value = true
+      if (!profile.value && typeof summary.publicRepos === 'number') {
+        profile.value = { public_repos: summary.publicRepos }
+      }
+    } else if (repositories.value.length) {
+      // Count commits only when the repo list actually arrived, otherwise every
+      // request fails and we would spend the rate limit for nothing.
       const results = await Promise.all(
         repositories.value.map((repository) =>
           countRepositoryCommits(repository.name, controller.signal).catch(() => null),
