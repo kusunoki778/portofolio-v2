@@ -1,0 +1,186 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-paper: #ffffff;
+  --color-paper-soft: #f4f4f5;
+  --color-ink: #09090b;
+  --color-ink-soft: #27272a;
+
+  --color-night: #09090b;
+  --color-night-soft: #18181b;
+  --color-cream: #ffffff;
+}
+
+/* Palet Monokrom: Putih, Abu-abu, Hitam */
+:root {
+  --surface: #ffffff;
+  --surface-card: #f4f4f5;
+  --surface-muted: #e4e4e7;
+  --text-primary: #09090b;
+  --text-muted: #71717a;
+  --text-faint: #a1a1aa;
+  --line: rgba(9, 9, 11, 0.1);
+  --line-strong: rgba(9, 9, 11, 0.22);
+  --accent: #09090b;
+  --accent-contrast: #ffffff;
+  --highlight: #71717a;
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  --surface: #09090b;
+  --surface-card: #18181b;
+  --surface-muted: #27272a;
+  --text-primary: #ffffff;
+  --text-muted: #a1a1aa;
+  --text-faint: #71717a;
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.22);
+  --accent: #ffffff;
+  --accent-contrast: #09090b;
+  --highlight: #a1a1aa;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--surface);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Readable body copy: never below 15px, comfortable line-height. */
+p,
+li {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* Visible keyboard focus everywhere (WCAG 2.4.7). */
+:focus-visible {
+  outline: 3px solid var(--text-primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+html[data-theme="dark"] :focus-visible {
+  outline-color: #ffffff;
+}
+
+/* Skip link: only visible when focused with the keyboard. */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  transform: translateY(-160%);
+  border-radius: 999px;
+  background: var(--text-primary);
+  color: var(--surface);
+  padding: 0.75rem 1.25rem;
+  font-weight: 700;
+  transition: transform 0.2s ease;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline-offset: 4px;
+}
+
+/* Transform transitions on the skip link confuse measurement, so disable them
+   when the user only wants the link to appear instantly. */
+@media (prefers-reduced-motion: reduce) {
+  .skip-link {
+    transition: none;
+  }
+}
+
+::selection {
+  background: var(--text-primary);
+  color: var(--surface);
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Comfortable tap targets on touch devices (WCAG 2.5.5). */
+@media (pointer: coarse) {
+  a,
+  button {
+    min-height: 44px;
+  }
+}
+
+@keyframes tech-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.tech-marquee {
+  animation: tech-marquee 38s linear infinite;
+}
+
+.tech-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise-in {
+  animation: rise-in 0.5s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .tech-marquee {
+    animation: none;
+    flex-wrap: wrap;
+  }
+}
