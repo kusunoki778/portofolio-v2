@@ -120,7 +120,7 @@ const blocks = computed(() =>
           Lihat semuanya ↗
         </RouterLink>
       </div>
-      <div class="grid gap-6 md:grid-cols-2">
+      <div class="grid grid-cols-2 gap-3 sm:gap-6">
         <ProjectCard v-for="item in others" :key="item.slug" :project="item" />
       </div>
     </section>

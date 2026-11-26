@@ -11,7 +11,7 @@ const heroImage = computed(() => props.project.image)
 
 <template>
   <article
-    class="group flex flex-col overflow-hidden rounded-[1.5rem] border border-[var(--line)] bg-[var(--surface-card)] transition duration-300 hover:-translate-y-1 hover:border-[var(--line-strong)] hover:shadow-xl hover:shadow-black/10"
+    class="group flex flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface-card)] transition duration-300 sm:rounded-[1.5rem] sm:hover:-translate-y-1 sm:hover:border-[var(--line-strong)] sm:hover:shadow-xl sm:hover:shadow-black/10"
   >
     <RouterLink
       :to="`/projects/${project.slug}`"
@@ -19,43 +19,43 @@ const heroImage = computed(() => props.project.image)
       tabindex="-1"
       aria-hidden="true"
     >
-      <ProjectGallery v-if="project.gallery" :project="project" class="transition duration-500 group-hover:scale-[1.02]" />
+      <ProjectGallery v-if="project.gallery" :project="project" compact class="transition duration-500 sm:group-hover:scale-[1.02]" />
       <img
         v-else
         :src="heroImage"
         :alt="project.imageAlt"
         loading="lazy"
         decoding="async"
-        class="aspect-[16/10] w-full bg-[var(--surface-card)] object-contain object-center transition duration-500 group-hover:scale-[1.02]"
+        class="aspect-[16/10] w-full bg-[var(--surface-card)] object-contain object-center transition duration-500 sm:group-hover:scale-[1.02]"
       />
     </RouterLink>
 
-    <div class="flex flex-1 flex-col p-6">
-      <p class="flex flex-wrap items-center gap-2 text-[0.8125rem] font-bold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+    <div class="flex flex-1 flex-col p-3.5 sm:p-6">
+      <p class="flex flex-wrap items-center gap-1.5 text-[0.625rem] font-bold uppercase tracking-[0.1em] text-[var(--text-muted)] sm:gap-2 sm:text-[0.8125rem] sm:tracking-[0.14em]">
         <span>{{ project.type }}</span>
         <span aria-hidden="true" class="text-[var(--text-faint)]">/</span>
         <span>{{ project.year }}</span>
       </p>
 
-      <h3 class="mt-3 text-2xl font-bold leading-tight tracking-[-0.02em] text-[var(--text-primary)]">
+      <h3 class="mt-2 text-base font-bold leading-snug tracking-[-0.02em] text-[var(--text-primary)] sm:mt-3 sm:text-2xl sm:leading-tight">
         <RouterLink :to="`/projects/${project.slug}`" class="transition hover:underline hover:decoration-2 hover:underline-offset-4">
           {{ project.title }}
         </RouterLink>
       </h3>
 
-      <p class="mt-3 text-[0.9375rem] leading-7 text-[var(--text-muted)]">{{ project.summary }}</p>
+      <p class="mb-3 mt-2 line-clamp-2 text-[0.8125rem] leading-5 text-[var(--text-muted)] sm:mb-6 sm:mt-3 sm:line-clamp-none sm:text-[0.9375rem] sm:leading-7">{{ project.summary }}</p>
 
-      <ul class="mt-5 flex flex-wrap gap-2" aria-label="Teknologi">
+      <ul class="mt-3 hidden flex-wrap gap-1.5 sm:mt-5 sm:flex sm:gap-2" aria-label="Teknologi">
         <li
           v-for="tech in project.stack"
           :key="tech"
-          class="rounded-full border border-[var(--line)] px-3 py-1 font-mono text-[0.75rem] text-[var(--text-muted)]"
+          class="rounded-full border border-[var(--line)] px-2 py-0.5 font-mono text-[0.6875rem] text-[var(--text-muted)] sm:px-3 sm:py-1 sm:text-[0.75rem]"
         >
           {{ tech }}
         </li>
       </ul>
 
-      <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-[var(--line)] pt-5 text-[0.875rem] font-bold">
+      <div class="mt-auto flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-[var(--line)] pt-3 text-[0.75rem] font-bold sm:gap-x-5 sm:gap-y-3 sm:pt-5 sm:text-[0.875rem]">
         <RouterLink :to="`/projects/${project.slug}`" class="text-[var(--text-primary)] underline decoration-2 underline-offset-4">
           Studi kasus
         </RouterLink>

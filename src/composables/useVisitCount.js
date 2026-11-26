@@ -1,48 +1,47 @@
 import { ref } from 'vue'
 
-const LOCAL_STORAGE_KEY = 'mufra-dev-visitor-count'
-const DEFAULT_BASELINE = 38
+// Free public counter (no signup, CORS-enabled). One namespace per site keeps
+// the count isolated. Docs: https://counterapi.com
+const NAMESPACE = 'mufra-portfolio.vercel.app'
+const ACTION = 'view'
+const KEY = 'portfolio'
+// API adds this baseline to the stored count, so the first visit shows 38
+// (continuing the old site's count). Set to 0 to start from 1.
+const START_NUMBER = 37
+const FALLBACK = '38'
+const TIMEOUT_MS = 8000
 
 const visits = ref(null)
 const failed = ref(false)
-let initialized = false
+let started = false
 
 export function trackVisit() {
-  if (initialized || typeof window === 'undefined') return
-  initialized = true
+  if (started || typeof window === 'undefined') return
+  started = true
 
-  // 1. Immediately read from localStorage and increment
-  try {
-    const stored = localStorage.getItem(LOCAL_STORAGE_KEY)
-    const current = stored ? Number(stored) + 1 : DEFAULT_BASELINE
-    localStorage.setItem(LOCAL_STORAGE_KEY, String(current))
-    visits.value = current.toLocaleString('en-US')
-  } catch {
-    visits.value = String(DEFAULT_BASELINE)
-  }
+  // Show the old count immediately; the API replaces it when it responds.
+  if (visits.value === null) visits.value = FALLBACK
 
-  // 2. Asynchronously ping remote counter API (like live site)
   const controller = new AbortController()
-  const timer = setTimeout(() => controller.abort(), 6000)
+  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS)
+  const url = `https://counterapi.com/api/${NAMESPACE}/${ACTION}/${KEY}?startNumber=${START_NUMBER}`
 
-  fetch('https://api.counterapi.dev/v1/mufra-dev/visits/up', { signal: controller.signal })
-    .then((res) => (res.ok ? res.json() : Promise.reject()))
+  fetch(url, { signal: controller.signal })
+    .then((response) => {
+      if (!response.ok) throw new Error(`Counter API returned ${response.status}`)
+      return response.json()
+    })
     .then((data) => {
-      if (data && typeof data.count === 'number') {
-        visits.value = Number(data.count).toLocaleString('en-US')
-        localStorage.setItem(LOCAL_STORAGE_KEY, String(data.count))
-      }
+      if (typeof data.value === 'number') visits.value = data.value.toLocaleString('en-US')
     })
     .catch(() => {
-      // Local counter is already set and displayed
+      // A counter must never break the page; Home falls back to the old count.
+      failed.value = true
     })
-    .finally(() => {
-      clearTimeout(timer)
-    })
+    .finally(() => clearTimeout(timer))
 }
 
 export function useVisitCount() {
-  // Ensure trackVisit is executed if not already
   trackVisit()
   return { visits, failed }
 }

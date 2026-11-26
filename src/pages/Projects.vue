@@ -49,7 +49,7 @@ const filtered = computed(() =>
         Menampilkan {{ filtered.length }} dari {{ projects.length }} proyek.
       </p>
 
-      <div class="mt-6 grid gap-6 md:grid-cols-2">
+      <div class="mt-6 grid grid-cols-2 gap-3 sm:gap-6">
         <ProjectCard v-for="project in filtered" :key="project.slug" :project="project" />
       </div>
     </section>

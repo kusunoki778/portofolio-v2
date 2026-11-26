@@ -63,17 +63,17 @@ const stats = [
     <!-- HERO -->
     <section class="mx-auto w-[min(1180px,calc(100%-2rem))] pt-28 md:pt-36">
       <p
-        class="inline-flex items-center gap-2 rounded-full border border-[var(--line-strong)] px-4 py-1.5 text-[0.8125rem] font-semibold text-[var(--text-muted)]"
+        class="inline-flex max-w-full items-center gap-2 rounded-full border border-[var(--line-strong)] px-3 py-2 text-left text-[0.75rem] font-semibold leading-snug text-[var(--text-muted)] sm:px-4 sm:py-1.5 sm:text-[0.8125rem]"
         aria-label="Status ketersediaan"
       >
-        <span class="size-2 rounded-full bg-[var(--text-primary)]" aria-hidden="true" />
-        Terbuka untuk magang pengembangan perangkat lunak
+        <span class="size-2 shrink-0 rounded-full bg-[var(--text-primary)]" aria-hidden="true" />
+        <span>Terbuka untuk magang pengembangan perangkat lunak</span>
       </p>
 
       <!-- Role Rotator Heading (Warna font serasi dengan teks utama) -->
-      <div class="mt-7 min-h-[3.8rem] md:min-h-[5.5rem] flex items-center">
+      <div class="mt-7 flex min-h-[5rem] min-w-0 items-center md:min-h-[5.5rem]">
         <h1
-          class="text-[clamp(2.4rem,7vw,5.2rem)] font-bold leading-[1.02] tracking-[-0.03em] text-[var(--text-primary)]"
+          class="min-w-0 text-[clamp(2.4rem,7vw,5.2rem)] font-bold leading-[1.02] tracking-[-0.03em] text-[var(--text-primary)]"
         >
           <span
             class="inline-block transition-all duration-200"
@@ -86,7 +86,7 @@ const stats = [
       </div>
 
       <div class="mt-8 grid gap-10 pb-16 md:grid-cols-[1.05fr_.95fr] md:items-start md:gap-14 md:pb-24">
-        <div>
+        <div class="min-w-0">
           <p class="max-w-xl text-[1.0625rem] leading-8 text-[var(--text-muted)]">
             Saya <strong class="font-semibold text-[var(--text-primary)]">Muhamad Fadhlurrahman</strong>, mahasiswa D4 Rekayasa
             Perangkat Lunak Politeknik Negeri Indramayu yang berbasis di Bekasi. Saya senang membangun aplikasi web dan mobile,
@@ -105,28 +105,28 @@ const stats = [
           </div>
 
           <!-- Meta strip dengan visited view (Website Visits) persis seperti screenshot -->
-          <ul class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[0.8125rem] font-semibold uppercase tracking-wider text-[var(--text-muted)]">
-            <li class="flex items-center gap-2">
-              <span aria-hidden="true" class="size-1.5 rounded-full bg-[var(--line-strong)]" />
+          <ul class="mt-9 flex min-w-0 flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[0.8125rem] font-semibold uppercase tracking-wider text-[var(--text-muted)]">
+            <li class="flex min-w-0 items-center gap-2">
+              <span aria-hidden="true" class="size-1.5 shrink-0 rounded-full bg-[var(--line-strong)]" />
               BERBASIS DI BEKASI, INDONESIA
             </li>
-            <li class="flex items-center gap-2">
-              <span aria-hidden="true" class="size-1.5 rounded-full bg-[var(--line-strong)]" />
+            <li class="flex min-w-0 items-center gap-2">
+              <span aria-hidden="true" class="size-1.5 shrink-0 rounded-full bg-[var(--line-strong)]" />
               BELAJAR LEWAT PROYEK
             </li>
-            <li class="flex items-center gap-2">
-              <span aria-hidden="true" class="size-1.5 rounded-full bg-[var(--line-strong)]" />
+            <li class="flex min-w-0 items-center gap-2">
+              <span aria-hidden="true" class="size-1.5 shrink-0 rounded-full bg-[var(--line-strong)]" />
               KUNJUNGAN PORTOFOLIO
-              <strong class="font-mono text-[var(--text-primary)] font-bold ml-1 text-sm tracking-normal">
+              <strong class="ml-1 font-mono text-sm font-bold tracking-normal text-[var(--text-primary)]">
                 {{ visits ?? '38' }}
               </strong>
             </li>
           </ul>
         </div>
 
-        <div class="rounded-[1.5rem] border border-[var(--line)] bg-[var(--surface-card)] p-6 md:p-7">
+        <div class="min-w-0 max-w-full rounded-[1.5rem] border border-[var(--line)] bg-[var(--surface-card)] p-6 md:p-7">
           <p class="font-mono text-[0.75rem] uppercase tracking-[0.16em] text-[var(--text-faint)]">what I'm learning</p>
-          <pre class="mt-4 overflow-x-auto font-mono text-[0.8125rem] leading-7 text-[var(--text-muted)]"><code>const profil = {
+          <pre class="mt-4 max-w-full overflow-x-auto font-mono text-[0.75rem] leading-6 text-[var(--text-muted)] sm:text-[0.8125rem] sm:leading-7"><code>const profil = {
   nama: "Muhamad Fadhlurrahman",
   peran: "Mahasiswa Rekayasa Perangkat Lunak",
   teknologi: ["TypeScript", "Vue / Nuxt", "Next.js", "PHP / Laravel"],
@@ -187,7 +187,7 @@ const stats = [
           Lihat semua proyek ↗
         </RouterLink>
       </div>
-      <div class="grid gap-6 md:grid-cols-2">
+      <div class="grid grid-cols-2 gap-3 sm:gap-6">
         <ProjectCard v-for="project in projects" :key="project.slug" :project="project" />
       </div>
     </section>
