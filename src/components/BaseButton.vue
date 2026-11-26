@@ -4,6 +4,7 @@ import { computed } from 'vue'
 const props = defineProps({
   to: { type: [String, Object], default: null },
   href: { type: String, default: null },
+  download: { type: [String, Boolean], default: null },
   variant: { type: String, default: 'solid' }, // solid | outline | ghost
   size: { type: String, default: 'md' }, // md | lg
 })
@@ -30,7 +31,13 @@ const classes = computed(() => [base, variants[props.variant] ?? variants.solid,
 </script>
 
 <template>
-  <component :is="tag" :to="to || undefined" :href="href || undefined" :class="classes">
+  <component
+    :is="tag"
+    :to="to || undefined"
+    :href="href || undefined"
+    :download="download ?? undefined"
+    :class="classes"
+  >
     <slot />
   </component>
 </template>

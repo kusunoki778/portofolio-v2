@@ -64,7 +64,13 @@ const principles = [
             <li class="flex gap-3"><span aria-hidden="true" class="text-[var(--text-primary)]">→</span>Mencari magang pengembangan perangkat lunak atau pengembang web.</li>
             <li class="flex gap-3"><span aria-hidden="true" class="text-[var(--text-primary)]">→</span>Memperdalam pengujian, struktur data, dan penerapan aplikasi.</li>
           </ul>
-          <BaseButton href="/assets/Muhamad_Fadhlurrahman_CV.pdf" class="mt-6">Unduh CV <span aria-hidden="true">↗</span></BaseButton>
+          <BaseButton
+            href="/assets/Muhamad_Fadhlurrahman_CV.pdf"
+            download="Muhamad_Fadhlurrahman_CV.pdf"
+            class="mt-6"
+          >
+            Unduh CV <span aria-hidden="true">↓</span>
+          </BaseButton>
         </div>
       </div>
     </section>
