@@ -128,16 +128,16 @@ const stats = [
 
         <div class="min-w-0 max-w-full rounded-[1.5rem] border border-[var(--line)] bg-[var(--surface-card)] p-6 md:p-7">
           <p class="font-mono text-[0.75rem] uppercase tracking-[0.16em] text-[var(--text-faint)]">what I'm learning</p>
-          <pre class="mt-4 max-w-full overflow-x-auto font-mono text-[0.75rem] leading-6 text-[var(--text-muted)] sm:text-[0.8125rem] sm:leading-7"><code>const profil = {
+          <pre class="mt-4 max-w-full whitespace-pre-wrap break-words font-mono text-[0.75rem] leading-6 text-[var(--text-muted)] sm:text-[0.8125rem] sm:leading-7"><code>const profil = {
   nama: "Muhamad Fadhlurrahman",
   peran: "Mahasiswa Rekayasa Perangkat Lunak",
-  teknologi: ["TypeScript", "Vue / Nuxt", "Next.js", "PHP / Laravel"],
-  alat: ["OWASP ZAP", "PostgreSQL", "Tailwind CSS"],
+  teknologi: ["Laravel", "PHP", "React", "JavaScript"],
+  alat: ["OWASP ZAP", "Postman", "Figma"],
   sedangDipelajari: "system design & application security",
   sedangMencari: "software development internship"
 };</code></pre>
           <div class="mt-5 flex flex-wrap gap-2">
-            <span v-for="tech in ['Vue', 'Nuxt', 'Next.js', 'TypeScript', 'Tailwind', 'Laravel', 'PostgreSQL', 'OWASP ZAP']" :key="tech" class="rounded-full border border-[var(--line)] px-3 py-1 font-mono text-[0.75rem] text-[var(--text-muted)]">{{ tech }}</span>
+            <span v-for="tech in ['PHP', 'JavaScript', 'Laravel', 'React', 'MySQL', 'PostgreSQL', 'Oracle', 'Tailwind', 'TypeScript', 'OWASP ZAP']" :key="tech" class="rounded-full border border-[var(--line)] px-3 py-1 font-mono text-[0.75rem] text-[var(--text-muted)]">{{ tech }}</span>
           </div>
         </div>
       </div>
