@@ -70,25 +70,10 @@ const stats = [
         <span>Terbuka untuk magang pengembangan perangkat lunak</span>
       </p>
 
-      <!-- Role Rotator Heading (Warna font serasi dengan teks utama) -->
-      <div class="mt-7 flex min-h-[5rem] min-w-0 items-center md:min-h-[5.5rem]">
-        <h1
-          class="min-w-0 text-[clamp(2.4rem,7vw,5.2rem)] font-bold leading-[1.02] tracking-[-0.03em] text-[var(--text-primary)]"
-        >
-          <span
-            class="inline-block transition-all duration-200"
-            :class="{ 'opacity-0 translate-y-3': isChangingRole, 'opacity-100 translate-y-0': !isChangingRole }"
-          >
-            {{ currentRole }}
-          </span>
-          <span class="ml-1 text-[var(--text-primary)] opacity-60 font-normal animate-pulse" aria-hidden="true">|</span>
-        </h1>
-      </div>
-
-      <p class="mt-2 max-w-2xl text-[1.0625rem] leading-8 text-[var(--text-muted)] md:text-[1.125rem]">
+      <h1 class="mt-7 max-w-[24ch] text-[clamp(2.1rem,4.8vw,4rem)] font-bold leading-[1.05] tracking-[-0.03em] text-[var(--text-primary)]">
         Membantu membangun sistem web dan aplikasi yang memudahkan pengguna, dengan pondasi arsitektur yang andal dan mudah
         dikelola.
-      </p>
+      </h1>
 
       <div class="mt-8 grid gap-10 pb-16 md:grid-cols-[1.05fr_.95fr] md:items-start md:gap-14 md:pb-24">
         <div class="min-w-0">
@@ -96,6 +81,18 @@ const stats = [
             Saya <strong class="font-semibold text-[var(--text-primary)]">Muhamad Fadhlurrahman</strong>, mahasiswa D4 Rekayasa
             Perangkat Lunak Politeknik Negeri Indramayu yang berbasis di Bekasi. Saya senang membangun aplikasi web dan mobile,
             mempelajari teknologi baru, serta membantu cara orang berinteraksi dengan produk digital.
+          </p>
+
+          <p class="mt-5 flex min-w-0 flex-wrap items-center gap-2 font-mono text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+            <span class="text-[var(--text-faint)]">Peran</span>
+            <span aria-hidden="true" class="text-[var(--text-faint)]">/</span>
+            <span
+              class="inline-block transition-all duration-200"
+              :class="{ 'opacity-0 translate-y-1': isChangingRole, 'opacity-100 translate-y-0': !isChangingRole }"
+            >
+              {{ currentRole }}
+            </span>
+            <span class="animate-pulse" aria-hidden="true">|</span>
           </p>
 
           <div class="mt-8 flex flex-wrap gap-3">
