@@ -11,8 +11,14 @@ const heroImage = computed(() => props.project.image)
 
 <template>
   <article
-    class="group flex flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface-card)] transition duration-300 sm:rounded-[1.5rem] sm:hover:-translate-y-1 sm:hover:border-[var(--line-strong)] sm:hover:shadow-xl sm:hover:shadow-black/10"
+    class="group relative flex flex-col overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface-card)] transition duration-300 sm:rounded-[1.5rem] sm:hover:-translate-y-1 sm:hover:border-[var(--line-strong)] sm:hover:shadow-xl sm:hover:shadow-black/10"
   >
+    <span
+      v-if="project.context"
+      class="absolute left-2 top-2 z-10 rounded-full border border-[var(--line)] bg-[var(--surface)]/95 px-2 py-0.5 font-mono text-[0.5625rem] font-bold uppercase tracking-[0.08em] text-[var(--text-muted)] backdrop-blur sm:left-4 sm:top-4 sm:text-[0.6875rem]"
+    >
+      {{ project.context }}
+    </span>
     <RouterLink
       :to="`/projects/${project.slug}`"
       class="block overflow-hidden border-b border-[var(--line)] bg-[var(--surface-muted)]"

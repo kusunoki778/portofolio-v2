@@ -16,12 +16,13 @@ const filtered = computed(() =>
     <section class="mx-auto w-[min(1180px,calc(100%-2rem))] pt-28 md:pt-36">
       <SectionLabel eyebrow="Proyek" />
       <h1 class="mt-6 max-w-[20ch] text-[clamp(2.4rem,6.4vw,4.6rem)] font-bold leading-[1] tracking-[-0.03em] text-[var(--text-primary)]">
-        Proyek yang pernah saya kerjakan.
+        Koleksi proyek yang pernah saya kerjakan.
       </h1>
       <p class="mt-8 max-w-2xl text-[1.0625rem] leading-8 text-[var(--text-muted)]">
-        Proyek di bawah ini berangkat dari kebutuhan yang berbeda: mencatat transaksi toko, mengurus administrasi RT, menemukan
-        UMKM sekitar kampus, mengelola konten destinasi wisata, sampai menemani orang memasak. Setiap kartu menjelaskan
-        masalah yang dihadapi, solusi yang dibuat, dan bagian yang saya kerjakan.
+        Koleksi ini terdiri dari proyek akademik, tugas kuliah, dan proyek individu yang saya kerjakan sambil belajar.
+        Sebagian berangkat dari studi kasus, sebagian dari kebutuhan yang saya temukan sendiri, dan sebagian besar masih
+        berupa prototipe — belum tentu dipakai orang banyak. Setiap kartu menjelaskan konteks masalah, solusi yang dibuat,
+        dan bagian yang saya kerjakan.
       </p>
     </section>
 

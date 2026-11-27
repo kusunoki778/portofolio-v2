@@ -1,5 +1,5 @@
 ﻿<script setup>
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { useTheme } from '../composables/useTheme'
 import ThemeToggle from './ThemeToggle.vue'
 
@@ -11,11 +11,8 @@ const items = [
   { name: 'Tentang saya', to: '/about' },
   { name: 'Proyek', to: '/projects' },
   { name: 'Sertifikat', to: '/certificates' },
-  { name: 'CV', to: '/cv' },
   { name: 'Kontak', to: '/contact' },
 ]
-
-const logoSuffix = computed(() => 'text-[var(--text-muted)]')
 </script>
 
 <template>
@@ -24,9 +21,8 @@ const logoSuffix = computed(() => 'text-[var(--text-muted)]')
     style="background: color-mix(in srgb, var(--surface) 88%, transparent); backdrop-filter: blur(16px)"
   >
     <div class="mx-auto flex h-[4.5rem] w-[min(1180px,calc(100%-2rem))] items-center justify-between gap-4">
-      <RouterLink to="/" class="flex items-baseline gap-2" @click="open = false">
-        <span class="text-xl font-bold tracking-[-0.04em] text-[var(--text-primary)]">MF<span :class="logoSuffix">/</span></span>
-        <span class="hidden font-mono text-[0.8125rem] text-[var(--text-muted)] sm:inline">mufra.dev</span>
+      <RouterLink to="/" class="text-xl font-bold tracking-[-0.04em] text-[var(--text-primary)]" @click="open = false">
+        mufra.dev
       </RouterLink>
 
       <nav class="hidden items-center gap-8 md:flex" aria-label="Navigasi utama">

@@ -7,6 +7,7 @@ const projectDefinitions = [
     type: 'Aplikasi web',
     category: 'Web',
     year: '2026',
+    context: 'Proyek akademik',
     featured: true,
     summary:
       'Situs publik bank sampah digital untuk edukasi daur ulang, katalog nilai tukar sampah, artikel, dan panduan setor. Terhubung ke API Laravel sebagai sumber data.',
@@ -36,6 +37,7 @@ const projectDefinitions = [
     type: 'Aplikasi mobile',
     category: 'Mobile',
     year: '2026',
+    context: 'Proyek akademik',
     featured: false,
     summary:
       'Aplikasi Android untuk member Livora. Member menyetor sampah terpilah di lokasi Livora, memindai QR untuk konfirmasi, lalu menerima koin yang dapat ditukar dengan reward fisik maupun saldo digital.',
@@ -70,6 +72,7 @@ const projectDefinitions = [
     type: 'Aplikasi web',
     category: 'Web',
     year: '2024',
+    context: 'Proyek akademik',
     featured: false,
     summary:
       'Platform edukasi berbasis web yang menyediakan informasi daur ulang serta sistem reward berbasis koin untuk mendorong partisipasi masyarakat dalam pengelolaan sampah.',
@@ -97,6 +100,7 @@ const projectDefinitions = [
     type: 'CMS pariwisata',
     category: 'Web',
     year: '2025',
+    context: 'Proyek akademik',
     featured: true,
     summary:
       'Sistem informasi dan pemesanan tiket berbasis web yang dilengkapi Content Management System (CMS) untuk memudahkan pembaruan konten dan pembelian tiket TMII.',
@@ -124,6 +128,7 @@ const projectDefinitions = [
     type: 'Sistem informasi',
     category: 'Web',
     year: '2025',
+    context: 'Proyek pribadi',
     featured: false,
     summary:
       'Sistem informasi berbasis web untuk mengelola data warga, pencatatan iuran, laporan keuangan, dan pengumuman dalam satu dasbor dengan hak akses berbasis peran.',
@@ -151,6 +156,7 @@ const projectDefinitions = [
     type: 'Mobile application',
     category: 'Mobile',
     year: '2025',
+    context: 'Proyek pribadi',
     featured: false,
     summary:
       'Aplikasi POS mobile untuk mengelola transaksi toko secara realtime, mulai dari katalog produk dan inventaris hingga laporan penjualan dan pembayaran QRIS.',
@@ -189,6 +195,7 @@ const projectDefinitions = [
     type: 'Platform prototipe',
     category: 'Web',
     year: '2026',
+    context: 'Proyek pribadi',
     featured: false,
     summary:
       'Direktori UMKM berbasis peta untuk menemukan warung, kos, bengkel, dan jasa lokal di sekitar kampus.',
@@ -226,6 +233,7 @@ const projectDefinitions = [
     type: 'Prototipe super-app',
     category: 'Web',
     year: '2026',
+    context: 'Proyek pribadi',
     featured: false,
     summary:
       'Prototipe super-app pengiriman lokal yang menyediakan pembuatan pesanan, auto-dispatch driver, tracking GPS, OTP serah terima, pembayaran, escrow, dan penyelesaian sengketa dalam satu alur terintegrasi.',
@@ -275,6 +283,7 @@ const projectDefinitions = [
     type: 'Aplikasi mobile',
     category: 'Mobile',
     year: '2024',
+    context: 'Tugas kuliah',
     featured: false,
     summary:
       'Aplikasi mobile yang memungkinkan pengguna menemukan, membuat, mengelola, dan membagikan resep masakan melalui platform interaktif yang dilengkapi fitur gamifikasi.',

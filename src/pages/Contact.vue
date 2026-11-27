@@ -35,11 +35,11 @@ const cvLink = links.find((link) => link.url)
         <div>
           <SectionLabel eyebrow="Kontak" />
           <h1 class="mt-6 text-[clamp(2.4rem,6.4vw,4.6rem)] font-bold leading-[1] tracking-[-0.03em] text-[var(--text-primary)]">
-            Ceritakan rencana atau<br /><span class="text-[var(--text-faint)]">masalah yang ingin diselesaikan.</span>
+            Mari terhubung<br /><span class="text-[var(--text-faint)]">dan berkolaborasi.</span>
           </h1>
           <p class="mt-8 max-w-xl text-[1.0625rem] leading-8 text-[var(--text-muted)]">
-            Saya terbuka untuk magang pengembangan perangkat lunak, kolaborasi proyek, atau diskusi teknis. Ceritakan
-            kebutuhan dan konteksnya; saya akan membalas dengan sejelas mungkin.
+            Saya terbuka untuk magang, proyek freelance remote, maupun diskusi seputar tech stack dan rekayasa perangkat
+            lunak modern. Saya akan membalas sebaik mungkin.
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <BaseButton href="mailto:mfadhlurrahman361@gmail.com" size="lg">Kirim email <span aria-hidden="true">↗</span></BaseButton>

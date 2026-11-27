@@ -15,7 +15,7 @@ const pages = [
 
 const highlights = [
   'D4 Rekayasa Perangkat Lunak, Politeknik Negeri Indramayu — IPK 3.60/4.00',
-  'Magang IT Support di PT Indofarma Tbk dan PT Madina Flash, Bintaro',
+  'Magang IT Support di PT Indofarma Tbk (2022) dan PT Madina Flash, Bintaro (2023)',
   'Terbiasa Laravel, React, Flutter, MySQL, PostgreSQL, dan Linux',
 ]
 </script>

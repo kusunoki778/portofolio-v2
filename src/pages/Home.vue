@@ -85,12 +85,17 @@ const stats = [
         </h1>
       </div>
 
+      <p class="mt-2 max-w-2xl text-[1.0625rem] leading-8 text-[var(--text-muted)] md:text-[1.125rem]">
+        Membantu membangun sistem web dan aplikasi yang memudahkan pengguna, dengan pondasi arsitektur yang andal dan mudah
+        dikelola.
+      </p>
+
       <div class="mt-8 grid gap-10 pb-16 md:grid-cols-[1.05fr_.95fr] md:items-start md:gap-14 md:pb-24">
         <div class="min-w-0">
           <p class="max-w-xl text-[1.0625rem] leading-8 text-[var(--text-muted)]">
             Saya <strong class="font-semibold text-[var(--text-primary)]">Muhamad Fadhlurrahman</strong>, mahasiswa D4 Rekayasa
             Perangkat Lunak Politeknik Negeri Indramayu yang berbasis di Bekasi. Saya senang membangun aplikasi web dan mobile,
-            mempelajari teknologi baru, serta meningkatkan cara orang berinteraksi dengan produk digital.
+            mempelajari teknologi baru, serta membantu cara orang berinteraksi dengan produk digital.
           </p>
 
           <div class="mt-8 flex flex-wrap gap-3">
@@ -157,13 +162,14 @@ const stats = [
         <div>
           <SectionLabel eyebrow="Tentang saya" />
           <h2 class="mt-5 text-[clamp(2rem,4.4vw,3.25rem)] font-bold leading-[1.02] tracking-[-0.03em] text-[var(--text-primary)]">
-            Yang saya pelajari<br /><span class="text-[var(--text-faint)]">datang dari proyek nyata.</span>
+            Yang saya pelajari<br /><span class="text-[var(--text-faint)]">datang dari proyek akademik.</span>
           </h2>
         </div>
         <div>
           <p class="max-w-2xl text-[1.125rem] leading-9 text-[var(--text-muted)]">
-            Saya belajar paling banyak saat mengerjakan sesuatu sampai bisa dipakai. Dari proyek web dan mobile, saya terbiasa
-            memikirkan alur pengguna, menghubungkan antarmuka dengan data, lalu memperbaiki hasilnya berdasarkan masukan.
+            Saya belajar paling banyak saat mengerjakan proyek akademik, tugas kuliah, dan proyek pribadi. Dari situ saya
+            terbiasa memikirkan alur pengguna, menghubungkan antarmuka dengan data, lalu memperbaiki hasilnya berdasarkan
+            masukan dosen maupun teman.
           </p>
           <RouterLink to="/about" class="mt-7 inline-flex items-center gap-2 text-[0.9375rem] font-bold text-[var(--text-primary)] underline decoration-2 underline-offset-4">
             Kenali saya lebih dekat <span aria-hidden="true">↗</span>
@@ -234,13 +240,13 @@ const stats = [
     <section class="mx-auto w-[min(1180px,calc(100%-2rem))] border-t border-[var(--line)] py-16 md:py-24">
       <div class="grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
         <div>
-          <SectionLabel eyebrow="Mari terhubung" />
-          <h2 class="mt-5 max-w-[18ch] text-[clamp(2.2rem,5.4vw,4rem)] font-bold leading-[1.0] tracking-[-0.03em] text-[var(--text-primary)]">
-            Ada proyek yang ingin dibahas?
+          <SectionLabel eyebrow="Kolaborasi" />
+          <h2 class="mt-5 max-w-[22ch] text-[clamp(2.2rem,5.4vw,4rem)] font-bold leading-[1.0] tracking-[-0.03em] text-[var(--text-primary)]">
+            Tertarik berkolaborasi atau berdiskusi lebih lanjut?
           </h2>
           <p class="mt-5 max-w-xl text-[1.0625rem] leading-8 text-[var(--text-muted)]">
-            Saya sedang mencari kesempatan magang pengembangan perangkat lunak. Ceritakan kebutuhan atau idenya, lalu kita
-            bisa membahas apakah saya dapat membantu.
+            Saya bersedia magang maupun freelance remote untuk mengembangkan kemampuan perangkat lunak saya. Boleh
+            berdiskusi untuk membahas lebih lanjut.
           </p>
         </div>
         <BaseButton to="/contact" size="lg">Hubungi saya <span aria-hidden="true">↗</span></BaseButton>
