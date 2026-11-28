@@ -202,7 +202,7 @@ const projectDefinitions = [
       { src: '/assets/pos3.png', alt: 'Layar pengelolaan produk dan menu Kasir Toko' },
       { src: '/assets/pos2.png', alt: 'Layar keranjang pesanan Kasir Toko' },
     ],
-    stack: ['Flutter', 'Dart', 'Firebase Auth', 'Cloud Firestore', 'Firebase Cloud Messaging', 'Node.js (Express)', 'MiomiPay API'],
+    stack: ['Flutter', 'Dart', 'Firebase Auth', 'Cloud Firestore', 'Firebase Cloud Messaging', 'Node.js (Express)'],
     repo: 'https://github.com/kusunoki778/pos-app-proto',
     demoAccounts: [
       { role: 'Admin', email: 'admin@pos.test', password: 'admin123456' },
@@ -243,7 +243,6 @@ const projectDefinitions = [
       'Tailwind CSS',
       'Prisma',
       'PostgreSQL',
-      'Leaflet',
     ],
     repo: 'https://github.com/kusunoki778/peta-umkm-mini-apps',
     problem:
@@ -274,16 +273,7 @@ const projectDefinitions = [
       'Prototipe super-app pengiriman lokal yang menyediakan pembuatan pesanan, auto-dispatch driver, tracking GPS, OTP serah terima, pembayaran, escrow, dan penyelesaian sengketa dalam satu alur terintegrasi.',
     image: '/assets/antar_local.png',
     imageAlt: 'Tampilan antarmuka dashboard driver AntarLokal dengan rincian order antar paket dan aksi terima pesanan',
-    stack: [
-      'Next.js',
-      'React',
-      'TypeScript',
-      'PostgreSQL',
-      'NextAuth',
-      'Socket.IO',
-      'Leaflet',
-      'Tailwind CSS',
-    ],
+    stack: ['Next.js', 'React', 'TypeScript', 'PostgreSQL', 'Tailwind CSS'],
     repo: 'https://github.com/kusunoki778/Super-app-jasa-antar-lokal',
     problem:
       'Layanan pengiriman lokal membutuhkan alur operasional yang jelas: pelanggan harus dapat membuat dan melacak pesanan, driver harus menerima order secara adil, dan pembayaran perlu memiliki mekanisme perlindungan sampai pesanan selesai.',
