@@ -2,6 +2,50 @@
 // Home (featured only), Projects list, and the detail route all read from here.
 const projectDefinitions = [
   {
+    slug: 'nadi',
+    title: 'Nadi',
+    type: 'Aplikasi web dan Android',
+    category: 'Web',
+    year: '2026',
+    context: 'Proyek pribadi',
+    contextNote: 'dibuat untuk pemakaian harian, bukan layanan komersial berskala publik.',
+    featured: false,
+    summary:
+      'Nadi menyatukan ritme harian dalam satu layar. Cuaca, kalender, catatan, alarm, jam, kualitas udara, dan kalkulator jadi satu aplikasi yang bisa dipasang sebagai PWA di browser atau APK Android. Semua data tersimpan di perangkat.',
+    image: '/assets/nadi.png',
+    imageAlt: 'Beranda Nadi dengan kartu cuaca, indeks kenyamanan, agenda hari ini, dan panel jam',
+    stack: [
+      'React',
+      'TypeScript',
+      'Vite',
+      'Tailwind CSS',
+      'Dexie (IndexedDB)',
+      'Capacitor',
+      'Android (Java)',
+      'Open-Meteo API',
+    ],
+    link: 'https://nadi-rho-umber.vercel.app/',
+    apk: 'https://github.com/kusunoki778/mini-apps-ritmeharian/releases',
+    repo: 'https://github.com/kusunoki778/mini-apps-ritmeharian',
+    problem:
+      'Ritme harian tersebar di banyak aplikasi. Cuaca di satu app, agenda di app lain, catatan di tempat ketiga, alarm bawaan tidak selalu bunyi saat ponsel terkunci atau mode hemat daya. Pengguna harus melompat antar aplikasi tiap hari, dan sebagian besar butuh akun serta koneksi internet terus menerus.',
+    solution:
+      'Membangun satu aplikasi yang menggabungkan modul harian: cuaca lengkap dengan sinar UV dan indeks kenyamanan dari data Open-Meteo, kalender agenda dengan pengingat berulang harian, mingguan, dan bulanan, catatan, alarm, jam dengan stopwatch dan timer jam-menit-detik, kualitas udara, serta kalkulator lengkap termasuk berat ideal berbasis standar WHO. Data disimpan lokal lewat Dexie sehingga aplikasi tetap jalan tanpa backend dan tanpa akun. Alarm dipasang di lapisan Android memakai AlarmManager sehingga tetap berbunyi walau aplikasi tertutup, lengkap dengan nada dering pilihan, batas tunda, dan getar. Aplikasi yang sama dipasang sebagai PWA installable dan sebagai APK rilis bertanda tangan.',
+    role:
+      'Mengerjakan seluruhnya sendiri: desain antarmuka terang dan gelap yang minimalis, frontend React dengan Vite, penyimpanan offline pakai Dexie, plugin Android native untuk alarm dan notifikasi, sampai proses build dan rilis APK ke GitHub Releases.',
+    highlights: [
+      'Beranda satu layar: cuaca, sinar UV, indeks kenyamanan, agenda, dan jam.',
+      'Kalender agenda dengan pengulangan harian, mingguan, dan bulanan, plus pengingat berapa menit atau hari sebelum mulai.',
+      'Catatan yang tampil setelah kalender, lengkap mode terang dan gelap.',
+      'Alarm berbunyi walau aplikasi tertutup, bisa dihentikan dan ditunda, dengan pilihan nada, batas tunda, dan getar.',
+      'Jam dengan stopwatch dan timer berjalan dalam satuan jam, menit, dan detik.',
+      'Kalkulator mode Lengkap dan kalkulator berat ideal berbasis standar pertumbuhan WHO.',
+      'Indeks kualitas udara dari API publik.',
+      'Bisa dipasang sebagai PWA dan tersedia APK Android bertanda tangan dari GitHub Releases.',
+      'Bahasa antarmuka Indonesia, aksesibel, dan ringan tanpa backend.',
+    ],
+  },
+  {
     slug: 'livora-web',
     title: 'Livora v2',
     type: 'Aplikasi web',
@@ -313,6 +357,7 @@ const projectDefinitions = [
 ]
 
 const projectOrder = [
+  'nadi',
   'livora-web',
   'tmii-cms',
   'rt-management-system',

@@ -38,12 +38,16 @@ const blocks = computed(() =>
       </h1>
       <p class="mt-6 max-w-2xl text-[1.125rem] leading-9 text-[var(--text-muted)]">{{ project.summary }}</p>
       <p v-if="project.context" class="mt-4 max-w-2xl text-[0.875rem] leading-6 text-[var(--text-muted)]">
-        {{ project.context }} · dibuat untuk pembelajaran, bukan sistem produksi yang dipakai publik.
+        {{ project.context }} ·
+        {{ project.contextNote || 'dibuat untuk pembelajaran, bukan sistem produksi yang dipakai publik.' }}
       </p>
 
       <div class="mt-8 flex flex-wrap items-center gap-3">
         <BaseButton v-if="project.link" :href="project.link" size="lg">
           {{ project.category === 'Mobile' ? 'Lihat demo aplikasi' : 'Buka situs demo' }} <span aria-hidden="true">↗</span>
+        </BaseButton>
+        <BaseButton v-if="project.apk" :href="project.apk" variant="outline" size="lg">
+          Unduh APK <span aria-hidden="true">↗</span>
         </BaseButton>
         <BaseButton v-if="project.repo" :href="project.repo" variant="outline" size="lg">Lihat kode sumber</BaseButton>
       </div>

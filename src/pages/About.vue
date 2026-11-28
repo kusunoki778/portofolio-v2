@@ -59,7 +59,7 @@ const principles = [
     <section class="mx-auto w-[min(1180px,calc(100%-2rem))] pt-28 md:pt-36">
       <SectionLabel eyebrow="Tentang saya" />
       <h1 class="mt-6 max-w-[22ch] text-[clamp(2.4rem,6.4vw,4.6rem)] font-bold leading-[1] tracking-[-0.03em] text-[var(--text-primary)]">
-        Saya belajar dengan membuat proyek sampai selesai.
+        Saya belajar dengan membuat proyek sampai bisa digunakan.
       </h1>
       <div class="mt-10 grid gap-10 pb-16 md:grid-cols-[1.05fr_.95fr] md:gap-16 md:pb-24">
         <p class="text-[1.125rem] leading-9 text-[var(--text-muted)]">
@@ -146,12 +146,14 @@ const principles = [
         </div>
       </div>
 
-      <div class="mt-14 flex flex-wrap items-center gap-4 rounded-[1.5rem] border border-[var(--line)] bg-[var(--surface-card)] p-6 md:p-8">
-        <p class="flex-1 text-[1.0625rem] font-semibold leading-8 text-[var(--text-primary)]">
+      <div class="mt-14 flex flex-col gap-5 rounded-[1.5rem] border border-[var(--line)] bg-[var(--surface-card)] p-6 sm:flex-row sm:items-center sm:justify-between md:p-8">
+        <p class="text-[1.0625rem] font-semibold leading-8 text-[var(--text-primary)]">
           Ingin melihat proyek yang saya kerjakan?
         </p>
-        <BaseButton to="/projects">Lihat proyek</BaseButton>
-        <BaseButton to="/contact" variant="outline">Hubungi saya</BaseButton>
+        <div class="flex flex-wrap gap-3">
+          <BaseButton to="/projects">Lihat proyek</BaseButton>
+          <BaseButton to="/contact" variant="outline">Hubungi saya</BaseButton>
+        </div>
       </div>
     </section>
 

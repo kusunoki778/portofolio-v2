@@ -22,7 +22,7 @@ const roles = [
   'Mobile App Developer',
   'Full-Stack Developer',
   'SQL Developer',
-  'IT Support Specialist',
+  'IT Support Enthusiast',
 ]
 
 const currentRoleIndex = ref(0)
@@ -51,7 +51,7 @@ onUnmounted(() => {
 })
 
 const stats = [
-  ['09', 'Proyek terdokumentasi'],
+  ['10', 'Proyek terdokumentasi'],
   ['16', 'Sertifikat'],
   ['02', 'Pengalaman kerja'],
   ['3.60', 'IPK akademik'],
@@ -71,21 +71,18 @@ const stats = [
       </p>
 
       <h1 class="mt-7 max-w-[24ch] text-[clamp(2.1rem,4.8vw,4rem)] font-bold leading-[1.05] tracking-[-0.03em] text-[var(--text-primary)]">
-        Membantu membangun sistem web dan aplikasi yang memudahkan pengguna, dengan pondasi arsitektur yang andal dan mudah
-        dikelola.
+        Halo, saya<br /><span class="text-[var(--text-faint)]">Muhamad Fadhlurrahman.</span>
       </h1>
 
       <div class="mt-8 grid gap-10 pb-16 md:grid-cols-[1.05fr_.95fr] md:items-start md:gap-14 md:pb-24">
         <div class="min-w-0">
           <p class="max-w-xl text-[1.0625rem] leading-8 text-[var(--text-muted)]">
-            Saya <strong class="font-semibold text-[var(--text-primary)]">Muhamad Fadhlurrahman</strong>, mahasiswa D4 Rekayasa
-            Perangkat Lunak Politeknik Negeri Indramayu yang berbasis di Bekasi. Saya senang membangun aplikasi web dan mobile,
-            mempelajari teknologi baru, serta membantu cara orang berinteraksi dengan produk digital.
+            Saya seorang mahasiswa D4 Rekayasa Perangkat Lunak Politeknik Negeri Indramayu yang berbasis di Bekasi. Saya
+            senang membangun aplikasi web dan mobile, mempelajari teknologi baru, serta membantu cara orang berinteraksi
+            dengan produk digital.
           </p>
 
           <p class="mt-5 flex min-w-0 flex-wrap items-center gap-2 font-mono text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-            <span class="text-[var(--text-faint)]">Peran</span>
-            <span aria-hidden="true" class="text-[var(--text-faint)]">/</span>
             <span
               class="inline-block transition-all duration-200"
               :class="{ 'opacity-0 translate-y-1': isChangingRole, 'opacity-100 translate-y-0': !isChangingRole }"
@@ -133,7 +130,7 @@ const stats = [
   peran: "Mahasiswa Rekayasa Perangkat Lunak",
   teknologi: ["Laravel", "PHP", "React", "JavaScript"],
   alat: ["OWASP ZAP", "Postman", "Figma"],
-  sedangDipelajari: "system design & application security",
+  sedangDipelajari: "application security & agentic ai",
   sedangMencari: "software development internship"
 };</code></pre>
           <div class="mt-5 flex flex-wrap gap-2">
@@ -204,7 +201,7 @@ const stats = [
         <div>
           <SectionLabel eyebrow="Sertifikat pilihan" />
           <h2 class="mt-5 text-2xl font-bold leading-tight tracking-[-0.02em] text-[var(--text-primary)] md:text-[2rem]">
-            Sertifikat yang mendukung pekerjaan saya.
+            Sertifikasi dan kursus yang telah saya selesaikan.
           </h2>
         </div>
         <RouterLink to="/certificates" class="hidden text-[0.9375rem] font-bold text-[var(--text-primary)] underline decoration-2 underline-offset-4 sm:inline-block">

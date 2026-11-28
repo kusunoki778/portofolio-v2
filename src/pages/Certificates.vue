@@ -18,7 +18,7 @@ const filtered = computed(() =>
     <section class="mx-auto w-[min(1180px,calc(100%-2rem))] pt-28 md:pt-36">
       <SectionLabel eyebrow="Sertifikat" />
       <h1 class="mt-6 max-w-[20ch] text-[clamp(2.4rem,6.4vw,4.6rem)] font-bold leading-[1] tracking-[-0.03em] text-[var(--text-primary)]">
-        Sertifikat yang mendukung pekerjaan saya.
+        Sertifikasi dan kursus yang telah saya selesaikan.
       </h1>
       <p class="mt-8 max-w-2xl text-[1.0625rem] leading-8 text-[var(--text-muted)]">
         Enam belas sertifikat dari pengembangan web, pemrograman, data science & AI, sistem operasi, jaringan, sampai praktik kerja
