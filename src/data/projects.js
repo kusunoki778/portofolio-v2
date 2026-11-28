@@ -16,7 +16,7 @@ const projectDefinitions = [
     imageAlt: 'Beranda Nadi dengan kartu cuaca, indeks kenyamanan, agenda hari ini, dan panel jam',
     stack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Capacitor'],
     link: 'https://nadi-rho-umber.vercel.app/',
-    apk: 'https://github.com/kusunoki778/mini-apps-ritmeharian/releases',
+    apk: 'https://drive.google.com/drive/folders/1AsOGfNWctu9vBqSDsHoYv3vlYexTvMAZ?usp=sharing',
     repo: 'https://github.com/kusunoki778/mini-apps-ritmeharian',
     problem:
       'Ritme harian tersebar di banyak aplikasi. Cuaca di satu app, agenda di app lain, catatan di tempat ketiga, alarm bawaan tidak selalu bunyi saat ponsel terkunci atau mode hemat daya. Pengguna harus melompat antar aplikasi tiap hari, dan sebagian besar butuh akun serta koneksi internet terus menerus.',
@@ -32,7 +32,7 @@ const projectDefinitions = [
       'Jam dengan stopwatch dan timer berjalan dalam satuan jam, menit, dan detik.',
       'Kalkulator mode Lengkap dan kalkulator berat ideal berbasis standar pertumbuhan WHO.',
       'Indeks kualitas udara dari API publik.',
-      'Bisa dipasang sebagai PWA dan tersedia APK Android bertanda tangan dari GitHub Releases.',
+      'Bisa dipasang sebagai PWA dan tersedia APK Android bertanda tangan.',
       'Bahasa antarmuka Indonesia, aksesibel, dan ringan tanpa backend.',
     ],
   },
