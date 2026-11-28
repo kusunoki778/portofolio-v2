@@ -357,10 +357,10 @@ const projectDefinitions = [
 ]
 
 const projectOrder = [
-  'nadi',
   'livora-web',
   'tmii-cms',
   'rt-management-system',
+  'nadi',
   'livora',
   'antarlokal',
   'ndekat',
